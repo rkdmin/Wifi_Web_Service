@@ -1,4 +1,4 @@
-package db;
+package DB;
 
 public class Wifi {
 	public String X_SWIFI_MGR_NO;// 관리번호

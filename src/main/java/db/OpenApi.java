@@ -1,4 +1,4 @@
-package db;
+package DB;
 
 import java.io.BufferedReader;
 import java.io.InputStreamReader;

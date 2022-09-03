@@ -14,9 +14,6 @@ import org.json.simple.parser.ParseException;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 
-import db.Root.TbPublicWifiInfo;
-import db.Root.TbPublicWifiInfo.Result;
-import db.Root.TbPublicWifiInfo.Wifi;
 
 public class OpenApi {
 

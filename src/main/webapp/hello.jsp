@@ -1,4 +1,4 @@
-<%@page import="db.*"%>
+<%@page import="db.*" %>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <!DOCTYPE html>
@@ -9,8 +9,8 @@
 </head>
 <body>
 	<%
-		Hello hello = new Hello();
-		
+		MemberService ms = new MemberService();
+		ms.dbSelect();
 	%>
 </body>
 </html> 

@@ -1,0 +1,48 @@
+@charset "utf-8";
+
+.forms {
+	height: 1.8rem;
+	width: 200px;
+	font-size: 20px;
+	line-height: 1.6;
+	
+	border-top: none;
+	border-left: none;
+	border-right: none;
+}
+
+
+section {
+	background-color: #5BA6FF;
+	height: 800px;
+	
+	position: relative;
+	margin-top: 0px;
+	text-align: center;
+}
+
+#loginw {
+	background-color: #FFFFFF;
+	border: 5px solid rgba(91, 166, 255, 1);
+	margin-left: 100px;
+	margin-right: 100px;
+	border-width: 50px;
+	padding: 150px;
+	font-size:28px;
+}
+
+.loginbtn {
+	width: 150px;
+	height: 40px;
+	border: none;
+	background-color: #1D67D4;
+	color: #FFFFFF;
+}
+
+.joinbtn {
+	width: 150px;
+	height: 40px;
+	border: none;
+	background-color: #1D67D4;
+	color: #FFFFFF;
+}

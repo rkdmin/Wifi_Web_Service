@@ -1,0 +1,59 @@
+@charset "utf-8";
+
+section {
+	background-color: #5BA6FF;
+	height: 800px;
+	
+	position: relative;
+	margin-top: 0px;
+	text-align: center;
+}
+
+#main {
+	background-color: #FFFFFF;
+	border: 5px solid rgba(91, 166, 255, 1);
+	margin-left: 100px;
+	margin-right: 100px;
+	border-width: 50px;
+	padding: 110px;
+	font-size: 30px;
+}
+
+.forms {
+	height: 3.0rem;
+	width: 250px;
+	font-size: 0.8rem;
+	line-height: 1.6;
+	
+	border-top: none;
+	border-left: none;
+	border-right: none;
+	
+	font-size: 30px;
+}
+
+.searchbtn {
+	width: 150px;
+	height: 40px;
+	border: none;
+	background-color: #1D67D4;
+	color: #FFFFFF;
+}
+
+.sct {
+	width:100px;
+	height: 40px;
+	text-align-last: center;
+   	text-align: center;
+   	-ms-text-align-last: center;
+   	-moz-text-align-last: center;
+   	border: none;
+   	font-size: 30px;
+}
+
+select {
+	-webkit-appearance: none;
+    -moz-appearance: none;
+	appearance:none;
+}
+select::-ms-expand {opacity:0;}

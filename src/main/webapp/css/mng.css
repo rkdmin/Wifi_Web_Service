@@ -1,0 +1,112 @@
+@charset "EUC-KR";
+
+section {
+	background-color: #5BA6FF;
+	height: auto;
+	
+	position: relative;
+	margin-top: 0px;
+	text-align: center;
+}
+
+h3 {
+	text-align:center;
+}
+#mainmng {
+	background-color: #FFFFFF;
+	border: 5px solid rgba(91, 166, 255, 1);
+	margin-left: 100px;
+	margin-right: 100px;
+	border-width: 50px;
+	padding: 150px;
+	font-size: 30px;
+}
+
+#mng {
+	background-color: #FFFFFF;
+	border: 5px solid rgba(91, 166, 255, 1);
+	margin-left: 100px;
+	margin-right: 100px;
+	border-width: 50px;
+	padding: 110px;
+	font-size: 30px;
+}
+
+.ftable {
+    font-size: 1rem;
+    font-weight: 400;
+    line-height: 1.5;
+    color: #FFFFFF;
+    font-family: Lato-Regular;
+    margin: 0;
+    padding: 0;
+}
+
+.forms {
+	align:left;
+	border:none;
+	height: 3.0rem;
+	width: 250px;
+	font-size: 0.8rem;
+	line-height: 1.6;
+	font-size: 25px;
+}
+
+.addforms {
+	border-top:none;
+	border-left:none;
+	border-right:none;
+	height: 3.0rem;
+	width: 250px;
+	font-size: 0.8rem;
+	line-height: 1.6;
+	font-size: 25px;
+}
+
+.routebtn {
+	text-align: center;
+	margin: auto;
+	margin-top: 40px;
+	width: 150px;
+	height: 40px;
+	border: none;
+	background-color: #1D67D4;
+	color: #FFFFFF;
+}
+
+.addbtn {
+	text-align: center;
+	margin: auto;
+	margin-top: 30px;
+	width: 200px;
+	height: 50px;
+	border: none;
+	background-color: #1D67D4;
+	color: #FFFFFF;
+}
+
+.delbtn {
+	text-align: center;
+	margin: auto;
+	margin-top: 30px;
+	width: 200px;
+	height: 50px;
+	border: none;
+	background-color: #1D67D4;
+	color: #FFFFFF;
+}
+
+.clickColor2 {
+	background-color: rgba(255, 0, 0, .9);
+	color: white;
+}
+
+.date {
+	font-size: 50px;
+	font-family: Lato-Regular;
+	margin: auto;
+}
+
+.btn {
+	display: inline;
+}

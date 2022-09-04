@@ -1,0 +1,23 @@
+@charset "utf-8";
+
+.logo {
+	position: absolute;
+	width: 173px;
+	height: 73px;
+	left: 0px;
+	top: 0px;
+	
+	font-size: 32px;
+}
+
+.menu {
+	vertical-align: top;
+	text-align: right;
+	font-size: 26px;
+
+}
+
+a {
+	text-decoration: none;
+	color: black;
+}

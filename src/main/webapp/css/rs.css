@@ -1,0 +1,17 @@
+
+section {
+	background-color: #5BA6FF;
+	height: 800px;
+	
+	position: relative;
+	margin-top: 0px;
+	text-align: center;
+}
+
+table{
+	width: 100%;
+}
+th, td {
+	border: solid 1px #000;
+}
+

@@ -1,0 +1,84 @@
+@charset "EUC-KR";
+
+section {
+	background-color: #5BA6FF;
+	height: 300px;
+}
+
+section {
+	background-color: #5BA6FF;
+	height: 900px;
+	
+	position: relative;
+	margin-top: 0px;
+	text-align: center;
+}
+
+#one, #two, #three {
+	text-align: right;
+}
+
+#join1, #join3 {
+	background-color: #FFFFFF;
+	border: 5px solid rgba(91, 166, 255, 1);
+	margin-left: 120px;
+	margin-right: 120px;
+	border-top-width: 60px;
+	border-left-width: 20px;
+	border-right-width: 20px;
+	border-bottom-width: 0px;
+	padding: 220px;
+	font-size: 20px;
+}
+
+#join2 {
+	background-color: #FFFFFF;
+	border: 5px solid rgba(91, 166, 255, 1);
+	margin-left: 300px;
+	margin-right: 300px;
+	border-width: 50px;
+	padding: 90px;
+}
+
+.forms {
+	height: 1.8rem;
+	width: 300px;
+	font-size: 0.8rem;
+	line-height: 1.6;
+	
+	border-top: none;
+	border-left: none;
+	border-right: none;
+}
+
+.joinbtn {
+	width: 150px;
+	height: 40px;
+	border: none;
+	background-color: #1D67D4;
+	color: #FFFFFF;
+}
+
+.loginbtn {
+	width: 150px;
+	height: 40px;
+	border: none;
+	background-color: #1D67D4;
+	color: #FFFFFF;
+}
+
+.joinform2 {
+	text-align: left;
+}
+
+.blue {
+	color: blue;
+}
+
+h3 {
+	display:inline;
+}
+
+.txt {
+	font-weight: 600;
+}

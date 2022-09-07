@@ -9,8 +9,6 @@
 </head>
 <body>
 	<%
-		MemberService ms = new MemberService();
-		ms.dbSelect();
 	%>
 </body>
 <script>

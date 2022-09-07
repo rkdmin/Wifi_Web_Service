@@ -11,7 +11,7 @@
 	<h2>와이파이 정보 구하기</h2>
 	<a href = "index.jsp">홈</a> |
 	<a>위치 히스토리 목록</a> |
-	<a>Open Api 와이파이 정보 가져오기</a>
+	<a href="load-wifi.jsp">Open Api 와이파이 정보 가져오기</a>
 	</br></br>
 	
 	

@@ -1,5 +1,6 @@
 package DB;
 
+
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
@@ -16,14 +17,16 @@ import com.google.gson.reflect.TypeToken;
 
 
 public class OpenApi {
-
-    public static void main(String[] args) {
-        try{            
+	public static int openWifiApi(int from, int to) {
+		try{            
         	// 1 ~ 1000 까지의 서울시 와이파이 URL (json)
-            String wifiURL = "http://openapi.seoul.go.kr:8088/436e476571323272323446796c516e/json/TbPublicWifiInfo/1/100/";
+			StringBuffer wifiURL = new StringBuffer();
+			wifiURL.append("http://openapi.seoul.go.kr:8088/436e476571323272323446796c516e/json/TbPublicWifiInfo");
+			wifiURL.append("/").append(from).append("/").append(to).append("/");  
+			System.out.println(wifiURL);
             
             // 1. URL 생성자로 URL 객체 만들기 
-            URL url = new URL(wifiURL);
+            URL url = new URL(wifiURL.toString());
             
             // 2. HTTP Connection구하기 (웹을 통해 데이터를 주고 받음)
             HttpURLConnection conn = (HttpURLConnection) url.openConnection();
@@ -56,11 +59,28 @@ public class OpenApi {
             Root root = gson.fromJson(jsonString,Root.class);
             
             //11. 결과 확인
-            System.out.println(root.TbPublicWifiInfo.row.get(10).toString());
+            // 오류확인2 아예 from부터 데이터가 없으면 위의 fromJson이 안된다.
+            if(root == null) {
+            	return root.TbPublicWifiInfo.list_total_count;
+            }
             
-
+            // 오류확인 size가 0이면 from은 맞으나 to는 다름 
+            ArrayList<Wifi> wifis = (ArrayList<Wifi>) root.TbPublicWifiInfo.row;
+            if(root.TbPublicWifiInfo.row.size() != 0) {
+            	// 데이터 넣기
+            	DB.insertWifi(wifis);
+                
+            	// 다음 데이터를 가져오기 위해 재귀 호출
+            	openWifiApi(to + 1, to + 1000);
+            }	
+            
+            return root.TbPublicWifiInfo.list_total_count;
         }catch(Exception e){
             System.out.println(e.getMessage());
         }
-    }
+		
+		return -1;
+		
+	}
+
 }

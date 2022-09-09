@@ -17,10 +17,9 @@
 	
 	LAT: <input type="text" value="0.0" id="lat">,
 	LNT: <input type="text" value="0.0" id="lnt">
-	<button onClick="getLocation()">내 위치 가져오기</button>
+	<button onClick="askForCoords()">내 위치 가져오기</button>
 	<button>근처 WIPI정보 보기</button>
 	</br></br>
-	
 	
 	<table>
 		<thead>
@@ -64,14 +63,17 @@ function getLocation(position) {
     const latElement = document.getElementById('lat');
     const lntElement = document.getElementById('lnt');
     
-   	askForCoords();// 위치 정보 불러오기
     const lat = position.coords.latitude;
     const lnt = position.coords.longitude;
     
     // 위치 정보 value 변경
     latElement.value = lat;
     lntElement.value = lnt;
-
+    
+    // 위치 정보 히스토리 삽입
+    <%
+    	
+    %>
 }
 </script>
 </html>

@@ -23,7 +23,6 @@ public class OpenApi {
 			StringBuffer wifiURL = new StringBuffer();
 			wifiURL.append("http://openapi.seoul.go.kr:8088/436e476571323272323446796c516e/json/TbPublicWifiInfo");
 			wifiURL.append("/").append(from).append("/").append(to).append("/");  
-			System.out.println(wifiURL);
             
             // 1. URL 생성자로 URL 객체 만들기 
             URL url = new URL(wifiURL.toString());
@@ -68,10 +67,11 @@ public class OpenApi {
             ArrayList<Wifi> wifis = (ArrayList<Wifi>) root.TbPublicWifiInfo.row;
             if(root.TbPublicWifiInfo.row.size() != 0) {
             	// 데이터 넣기
-            	DB.insertWifi(wifis);
+            	DB.insertWifi(wifis);	
+            	System.out.println(wifiURL);
                 
             	// 다음 데이터를 가져오기 위해 재귀 호출
-            	openWifiApi(to + 1, to + 1000);
+            	//openWifiApi(to + 1, to + 1000);
             }	
             
             return root.TbPublicWifiInfo.list_total_count;

@@ -131,6 +131,7 @@ public class DB {
 
 	}
 	
+	// wifi 정보들을 insert
 	public static void insertWifi(ArrayList<Wifi> wifis) {
 		Connection connection = null;
 	    PreparedStatement preparedStatement = null;// Statement를 사용하면 공격당할 수 있다.
@@ -196,6 +197,7 @@ public class DB {
 
 	}
 	
+	// wifi 정보들이 몇 개 저장되어있는지 카운트
 	public static int getTotalCnt() {
 		Connection connection = null;
 	    PreparedStatement preparedStatement = null;// Statement를 사용하면 공격당할 수 있다.
@@ -250,6 +252,7 @@ public class DB {
 
 	}
 	
+	// history 정보를 insert
 	public static void insertHistory(History history) {
 		Connection connection = null;
 	    PreparedStatement preparedStatement = null;// Statement를 사용하면 공격당할 수 있다.
@@ -269,33 +272,17 @@ public class DB {
             // DB연결
             connection = DriverManager.getConnection(url, dbUserId, dbPassword);
             
-            for(Wifi wifi: wifis) {
-            	// 쿼리 실행
-                String sql = "insert into wifi(X_SWIFI_MGR_NO, X_SWIFI_WRDOFC, X_SWIFI_MAIN_NM, X_SWIFI_ADRES1, X_SWIFI_ADRES2, X_SWIFI_INSTL_FLOOR,\r\n"
-                		+ "				X_SWIFI_INSTL_TY, X_SWIFI_INSTL_MBY, X_SWIFI_SVC_SE, X_SWIFI_CMCWR, X_SWIFI_CNSTC_YEAR, X_SWIFI_INOUT_DOOR,\r\n"
-                		+ "				X_SWIFI_REMARS3, LAT, LNT, WORK_DTTM) \r\n"
-                		+ "values(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?);";
-                preparedStatement = connection.prepareStatement(sql);
-                preparedStatement.setString(1, wifi.getX_SWIFI_MGR_NO());
-                preparedStatement.setString(2, wifi.getX_SWIFI_WRDOFC());
-                preparedStatement.setString(3, wifi.getX_SWIFI_MAIN_NM());
-                preparedStatement.setString(4, wifi.getX_SWIFI_ADRES1());
-                preparedStatement.setString(5, wifi.getX_SWIFI_ADRES2());
-                preparedStatement.setString(6, wifi.getX_SWIFI_INSTL_FLOOR());
-                preparedStatement.setString(7, wifi.getX_SWIFI_INSTL_TY());
-                preparedStatement.setString(8, wifi.getX_SWIFI_INSTL_MBY());
-                preparedStatement.setString(9, wifi.getX_SWIFI_SVC_SE());
-                preparedStatement.setString(10, wifi.getX_SWIFI_CMCWR());
-                preparedStatement.setString(11, wifi.getX_SWIFI_CNSTC_YEAR());
-                preparedStatement.setString(12, wifi.getX_SWIFI_INOUT_DOOR());
-                preparedStatement.setString(13, wifi.getX_SWIFI_REMARS3());
-                preparedStatement.setDouble(14, wifi.getLAT());
-                preparedStatement.setDouble(15, wifi.getLNT());
-                preparedStatement.setString(16, wifi.getWORK_DTTM());
-                
-                // 결과 수행
-                preparedStatement.executeQuery();
-            }
+            // 쿼리 실행
+            String sql = "insert into history (LAT, LNT, INQUERY_DATE)\r\n"
+            		+ "values(?, ?, ?);";
+            preparedStatement = connection.prepareStatement(sql);
+            preparedStatement.setDouble(1, history.getLat());
+            preparedStatement.setDouble(2, history.getLnt());
+            preparedStatement.setDate(3, history.getInqueryDate());
+            
+            
+            // 결과 수행
+            preparedStatement.executeQuery();
             
         } catch (SQLException e) {
             throw new RuntimeException(e);

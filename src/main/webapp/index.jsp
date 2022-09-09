@@ -1,3 +1,4 @@
+<%@page import="DB.*, java.util.*" %>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <!DOCTYPE html>
@@ -14,10 +15,13 @@
 	<a href="load-wifi.jsp">Open Api 와이파이 정보 가져오기</a>
 	</br></br>
 	
+	<form action="load-location.jsp">
+		LAT: <input type="text" value="0.0" id="lat">,
+		LNT: <input type="text" value="0.0" id="lnt">
+		<input type="hidden" value="0" id="date">
+		<input type="submit" value="내 위치 가져오기" onClick="askForCoords()">
+	</form>
 	
-	LAT: <input type="text" value="0.0" id="lat">,
-	LNT: <input type="text" value="0.0" id="lnt">
-	<button onClick="askForCoords()">내 위치 가져오기</button>
 	<button>근처 WIPI정보 보기</button>
 	</br></br>
 	
@@ -62,6 +66,7 @@ function getLocation(position) {
 	
     const latElement = document.getElementById('lat');
     const lntElement = document.getElementById('lnt');
+    const dateElement = document.getElementById('date');
     
     const lat = position.coords.latitude;
     const lnt = position.coords.longitude;
@@ -70,10 +75,12 @@ function getLocation(position) {
     latElement.value = lat;
     lntElement.value = lnt;
     
-    // 위치 정보 히스토리 삽입
+    // 현재 시간 value 변경
     <%
-    	
+    	Date now = new Date();
     %>
+    dateElement.value = "<%=now%>";
+    
 }
 </script>
 </html>

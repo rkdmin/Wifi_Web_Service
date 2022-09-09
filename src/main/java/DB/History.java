@@ -1,17 +1,14 @@
 package DB;
 
-import java.sql.Date;
-
 public class History {
 	private int historyId;
 	private double lat;
 	private double lnt;
-	Date inqueryDate;
+	private String inqueryDate;
 	
 	
-	public History(int historyId, double lat, double lnt, Date inqueryDate) {
+	public History(double lat, double lnt, String inqueryDate) {
 		super();
-		this.historyId = historyId;
 		this.lat = lat;
 		this.lnt = lnt;
 		this.inqueryDate = inqueryDate;
@@ -48,12 +45,12 @@ public class History {
 	}
 
 
-	public Date getInqueryDate() {
+	public String getInqueryDate() {
 		return inqueryDate;
 	}
 
 
-	public void setInqueryDate(Date inqueryDate) {
+	public void setInqueryDate(String inqueryDate) {
 		this.inqueryDate = inqueryDate;
 	}
 	

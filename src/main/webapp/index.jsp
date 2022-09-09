@@ -1,4 +1,4 @@
-<%@page import="DB.*, java.util.*" %>
+<%@page import="DB.*, java.util.*, java.util.Date, java.text.SimpleDateFormat"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <!DOCTYPE html>
@@ -14,12 +14,32 @@
 	<a>위치 히스토리 목록</a> |
 	<a href="load-wifi.jsp">Open Api 와이파이 정보 가져오기</a>
 	</br></br>
+	<%
+		double lat = 0.0;
+		double lnt = 0.0;
+		String date = null;
+		
+		
+		// 만약에 lat, lnt, date 값이 들어있다면 내 위치 history db에 넣어줌 
+		if(request.getParameter("lat") != null && request.getParameter("lnt") != null && request.getParameter("date") != null){
+			lat = Double.parseDouble(request.getParameter("lat"));
+			lnt = Double.parseDouble(request.getParameter("lnt"));
+			date = request.getParameter("date");
+			
+			// history 객체 생성
+			History history = new History(lat, lnt, date);
+		
+			// db에 insert
+			DB.insertHistory(history);
+		}
 	
-	<form action="load-location.jsp">
-		LAT: <input type="text" value="0.0" id="lat">,
-		LNT: <input type="text" value="0.0" id="lnt">
-		<input type="hidden" value="0" id="date">
-		<input type="submit" value="내 위치 가져오기" onClick="askForCoords()">
+		
+	%>
+	<form action="index.jsp" method="get" name="locationForm">
+		LAT: <input type="text" value="<%=lat%>" id="lat" name="lat">,
+		LNT: <input type="text" value="<%=lnt%>" id="lnt" name="lnt">
+		<input type="hidden" value="<%=date%>" id="date" name="date">
+		<input type="button" value="내 위치 가져오기" onClick="askForCoords()">
 	</form>
 	
 	<button>근처 WIPI정보 보기</button>
@@ -60,13 +80,12 @@ function askForCoords() {
 function handleGeoError() {
 	  console.log("Can't access geo location");
 }
-
-
 function getLocation(position) {
 	
     const latElement = document.getElementById('lat');
     const lntElement = document.getElementById('lnt');
     const dateElement = document.getElementById('date');
+    const locationForm = document.locationForm;
     
     const lat = position.coords.latitude;
     const lnt = position.coords.longitude;
@@ -78,8 +97,14 @@ function getLocation(position) {
     // 현재 시간 value 변경
     <%
     	Date now = new Date();
+    	SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+    	String nowStr = formatter.format(now);
+    	System.out.println(nowStr);
     %>
-    dateElement.value = "<%=now%>";
+    dateElement.value = "<%=nowStr%>";
+	
+    // submit(나중에 submit을 해야 데이터가 잘 넘어가짐)
+    locationForm.submit();
     
 }
 </script>

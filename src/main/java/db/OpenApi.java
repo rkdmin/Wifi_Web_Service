@@ -71,7 +71,7 @@ public class OpenApi {
             	System.out.println(wifiURL);
                 
             	// 다음 데이터를 가져오기 위해 재귀 호출
-            	//openWifiApi(to + 1, to + 1000);
+            	openWifiApi(to + 1, to + 1000);
             }	
             
             return root.TbPublicWifiInfo.list_total_count;

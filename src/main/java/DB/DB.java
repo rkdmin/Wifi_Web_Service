@@ -278,7 +278,7 @@ public class DB {
             preparedStatement = connection.prepareStatement(sql);
             preparedStatement.setDouble(1, history.getLat());
             preparedStatement.setDouble(2, history.getLnt());
-            preparedStatement.setDate(3, history.getInqueryDate());
+            preparedStatement.setString(3, history.getInqueryDate());
             
             
             // 결과 수행

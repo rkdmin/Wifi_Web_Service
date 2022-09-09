@@ -17,6 +17,5 @@
 	    	var longitude = pos.coords.longitude;
 	    	alert("현재 위치는 : " + latitude + ", "+ longitude);
 	});
-
 </script>
 </html> 

@@ -15,9 +15,9 @@
 	</br></br>
 	
 	
-	LAT: <input type="text" value="0.0" id="lat">,
-	LNT: <input type="text" value="0.0" id="lnt">
-	<button onClick="getLocation()">내 위치 가져오기</button>
+	LAT: <input type="text" value="0.0">,
+	LNT: <input type="text" value="0.0">
+	<a href="load-wifi.jsp"><button>내 위치 가져오기</button></a>
 	<button>근처 WIPI정보 보기</button>
 	</br></br>
 	
@@ -49,29 +49,4 @@
 		</tbody>
 	</table>
 </body>
-<script>
-function askForCoords() {
-	  navigator.geolocation.getCurrentPosition(getLocation, handleGeoError);
-}
-	
-function handleGeoError() {
-	  console.log("Can't access geo location");
-}
-
-
-function getLocation(position) {
-	
-    const latElement = document.getElementById('lat');
-    const lntElement = document.getElementById('lnt');
-    
-   	askForCoords();// 위치 정보 불러오기
-    const lat = position.coords.latitude;
-    const lnt = position.coords.longitude;
-    
-    // 위치 정보 value 변경
-    latElement.value = lat;
-    lntElement.value = lnt;
-
-}
-</script>
 </html>

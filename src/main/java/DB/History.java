@@ -6,6 +6,13 @@ public class History {
 	private double lnt;
 	private String inqueryDate;
 	
+	public History(int id, double lat, double lnt, String inqueryDate) {
+		super();
+		this.historyId = id;
+		this.lat = lat;
+		this.lnt = lnt;
+		this.inqueryDate = inqueryDate;
+	}
 	
 	public History(double lat, double lnt, String inqueryDate) {
 		super();

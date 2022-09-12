@@ -301,4 +301,70 @@ public class DB {
         }
 
 	}
+
+	// history 정보들을 select
+	public static ArrayList<History> getHistoryList() {
+		Connection connection = null;
+		Statement statement = null;
+	    PreparedStatement preparedStatement = null;// Statement를 사용하면 공격당할 수 있다.
+	    ResultSet rs = null;
+	    ArrayList<History> historys = new ArrayList<>();
+	    String url = "jdbc:mariadb://localhost:3306/wifi";
+	    String dbUserId = "root";
+	    String dbPassword = "zerobase";
+
+        // 1. 드라이버 로드
+        try {
+            Class.forName("org.mariadb.jdbc.Driver");
+        } catch (ClassNotFoundException e) {
+            throw new RuntimeException(e);
+        }
+
+        try {
+            // DB연결
+            connection = DriverManager.getConnection(url, dbUserId, dbPassword);
+
+            // 쿼리 실행
+            String sql = "select *\r\n"
+            		+ "from history\r\n"
+            		+ "ORDER BY HISTORY_ID DESC;";
+            preparedStatement = connection.prepareStatement(sql);
+
+            // 결과 수행
+            rs = preparedStatement.executeQuery();
+
+            while(rs.next()){
+                int id = rs.getInt("HISTORY_ID");
+                double lat = rs.getDouble("LAT");
+                double lnt =  rs.getDouble("LNT");
+                String date = rs.getString("INQUERY_DATE");
+                historys.add(new History(id, lat, lnt, date));
+            }
+            
+            return historys;
+
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        } finally {
+            // 6. 객체 연결 해제(close) finally로 꼭 실행되게 빼줘야함
+            try {
+                if(rs != null && rs.isClosed()) rs.close();
+            } catch (SQLException e) {
+                throw new RuntimeException(e);
+            }
+
+            try {
+                if(preparedStatement != null && !preparedStatement.isClosed()) preparedStatement.close();
+            } catch (SQLException e) {
+                throw new RuntimeException(e);
+            }
+
+            try {
+                if(connection != null && !connection.isClosed()) connection.close();
+            } catch (SQLException e) {
+                throw new RuntimeException(e);
+            }
+        }
+
+	}
 }

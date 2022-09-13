@@ -1,6 +1,7 @@
 package DB;
 
-public class Wifi {
+public class WifiDistance {
+	private double distance;// 거리
 	private String X_SWIFI_MGR_NO;// 관리번호
 	private String X_SWIFI_WRDOFC;// 자치구
 	private String X_SWIFI_MAIN_NM;// 와이파이명
@@ -19,11 +20,12 @@ public class Wifi {
 	private String WORK_DTTM;// 작업일자
 	
 	
-	public Wifi(String x_SWIFI_MGR_NO, String x_SWIFI_WRDOFC, String x_SWIFI_MAIN_NM, String x_SWIFI_ADRES1,
+	public WifiDistance(double distance, String x_SWIFI_MGR_NO, String x_SWIFI_WRDOFC, String x_SWIFI_MAIN_NM, String x_SWIFI_ADRES1,
 			String x_SWIFI_ADRES2, String x_SWIFI_INSTL_FLOOR, String x_SWIFI_INSTL_TY, String x_SWIFI_INSTL_MBY,
 			String x_SWIFI_SVC_SE, String x_SWIFI_CMCWR, String x_SWIFI_CNSTC_YEAR, String x_SWIFI_INOUT_DOOR,
 			String x_SWIFI_REMARS3, Double lAT, Double lNT, String wORK_DTTM) {
 		super();
+		this.distance = distance;
 		X_SWIFI_MGR_NO = x_SWIFI_MGR_NO;
 		X_SWIFI_WRDOFC = x_SWIFI_WRDOFC;
 		X_SWIFI_MAIN_NM = x_SWIFI_MAIN_NM;
@@ -55,6 +57,16 @@ public class Wifi {
 	}
 	
 	
+	public double getDistance() {
+		return distance;
+	}
+
+
+	public void setDistance(double distance) {
+		this.distance = distance;
+	}
+
+
 	public String getX_SWIFI_MGR_NO() {
 		return X_SWIFI_MGR_NO;
 	}

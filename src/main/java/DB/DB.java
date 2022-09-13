@@ -7,6 +7,8 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 
 public class DB {
 	public void dbSelect() {
@@ -171,8 +173,8 @@ public class DB {
                 preparedStatement.setString(11, wifi.getX_SWIFI_CNSTC_YEAR());
                 preparedStatement.setString(12, wifi.getX_SWIFI_INOUT_DOOR());
                 preparedStatement.setString(13, wifi.getX_SWIFI_REMARS3());
-                preparedStatement.setDouble(14, wifi.getLAT());
-                preparedStatement.setDouble(15, wifi.getLNT());
+                preparedStatement.setDouble(15, wifi.getLAT());// 공공데이터 위도 경도가 반대로 되어있어서 반대로 db insert
+                preparedStatement.setDouble(14, wifi.getLNT());
                 preparedStatement.setString(16, wifi.getWORK_DTTM());
                 
                 // 결과 수행
@@ -252,6 +254,94 @@ public class DB {
 
 	}
 	
+	// wifi 정보들을 select
+	public static ArrayList<WifiDistance> selectWifis(double lat, double lnt) {
+		Connection connection = null;
+	    PreparedStatement preparedStatement = null;// Statement를 사용하면 공격당할 수 있다.
+	    ResultSet rs = null;
+	    String url = "jdbc:mariadb://localhost:3306/wifi";
+	    String dbUserId = "root";
+	    String dbPassword = "zerobase";
+	    ArrayList<WifiDistance> wifiDistances = new ArrayList<>();
+	    
+        // 1. 드라이버 로드
+        try {
+            Class.forName("org.mariadb.jdbc.Driver");
+        } catch (ClassNotFoundException e) {
+            throw new RuntimeException(e);
+        }
+
+        try {
+            // DB연결
+            connection = DriverManager.getConnection(url, dbUserId, dbPassword);
+            
+         // 쿼리 실행
+            String sql = "SELECT\r\n"
+            		+ "      *, round((\r\n"
+            		+ "      6371 * acos (\r\n"
+            		+ "      cos ( radians(?) )\r\n"
+            		+ "      * cos( radians(lat) )\r\n"
+            		+ "      * cos( radians(lnt) - radians(?) )\r\n"
+            		+ "      + sin ( radians(?) )\r\n"
+            		+ "      * sin( radians(lat) )\r\n"
+            		+ "    )\r\n"
+            		+ "),4) AS 거리\r\n"
+            		+ "FROM wifi\r\n"
+            		+ "ORDER BY 거리\r\n"
+            		+ "LIMIT 0 , 20;";
+            preparedStatement = connection.prepareStatement(sql);
+            preparedStatement.setDouble(1, lat);
+            preparedStatement.setDouble(2, lnt);
+            preparedStatement.setDouble(3, lat);
+           
+           
+            // 결과 수행
+            rs = preparedStatement.executeQuery();
+            
+            while(rs.next()){
+                double distance = rs.getDouble("거리");
+                String X_SWIFI_MGR_NO = rs.getString("X_SWIFI_MGR_NO");
+                String X_SWIFI_WRDOFC = rs.getString("X_SWIFI_WRDOFC");
+                String X_SWIFI_MAIN_NM = rs.getString("X_SWIFI_MAIN_NM");
+                String X_SWIFI_ADRES1 = rs.getString("X_SWIFI_ADRES1");
+                String X_SWIFI_ADRES2 = rs.getString("X_SWIFI_ADRES2");
+                String X_SWIFI_INSTL_FLOOR = rs.getString("X_SWIFI_INSTL_FLOOR");
+                String X_SWIFI_INSTL_TY = rs.getString("X_SWIFI_INSTL_TY");
+                String X_SWIFI_INSTL_MBY = rs.getString("X_SWIFI_INSTL_MBY");
+                String X_SWIFI_SVC_SE = rs.getString("X_SWIFI_SVC_SE");
+                String X_SWIFI_CMCWR = rs.getString("X_SWIFI_CMCWR");
+                String X_SWIFI_CNSTC_YEAR = rs.getString("X_SWIFI_CNSTC_YEAR");
+                String X_SWIFI_INOUT_DOOR = rs.getString("X_SWIFI_INOUT_DOOR");
+                String X_SWIFI_REMARS3 = rs.getString("X_SWIFI_REMARS3");
+                double LAT = rs.getDouble("LAT");
+                double LNT = rs.getDouble("LNT");
+                String WORK_DTTM = rs.getString("WORK_DTTM");
+                
+                WifiDistance wifiDistance = new WifiDistance(distance, X_SWIFI_MGR_NO, X_SWIFI_WRDOFC, X_SWIFI_MAIN_NM, X_SWIFI_ADRES1, X_SWIFI_ADRES2,
+                		X_SWIFI_INSTL_FLOOR, X_SWIFI_INSTL_TY, X_SWIFI_INSTL_MBY, X_SWIFI_SVC_SE, X_SWIFI_CMCWR,
+                		X_SWIFI_CNSTC_YEAR, X_SWIFI_INOUT_DOOR, X_SWIFI_REMARS3, LAT, LNT, WORK_DTTM);
+                
+                wifiDistances.add(wifiDistance);
+            }
+            
+            return wifiDistances;
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        } finally {
+            try {
+                if(preparedStatement != null && !preparedStatement.isClosed()) preparedStatement.close();
+            } catch (SQLException e) {
+                throw new RuntimeException(e);
+            }
+
+            try {
+                if(connection != null && !connection.isClosed()) connection.close();
+            } catch (SQLException e) {
+                throw new RuntimeException(e);
+            }
+        }
+
+	}
 	// history 정보를 insert
 	public static void insertHistory(History history) {
 		Connection connection = null;
@@ -367,4 +457,54 @@ public class DB {
         }
 
 	}
+
+	// history 정보를 id로 delete
+		public static void deleteHistory(int id) {
+			Connection connection = null;
+			Statement statement = null;
+		    PreparedStatement preparedStatement = null;// Statement를 사용하면 공격당할 수 있다.
+		    String url = "jdbc:mariadb://localhost:3306/wifi";
+		    String dbUserId = "root";
+		    String dbPassword = "zerobase";
+
+	        // 1. 드라이버 로드
+	        try {
+	            Class.forName("org.mariadb.jdbc.Driver");
+	        } catch (ClassNotFoundException e) {
+	            throw new RuntimeException(e);
+	        }
+
+	        try {
+	            // DB연결
+	            connection = DriverManager.getConnection(url, dbUserId, dbPassword);
+
+	            // 쿼리 실행
+	            String sql = "delete \r\n"
+	            		+ "from history\r\n"
+	            		+ "where HISTORY_ID = ?;";
+	            preparedStatement = connection.prepareStatement(sql);
+	            preparedStatement.setInt(1, id);
+
+	            // 결과 수행
+	            preparedStatement.executeQuery();
+
+	        } catch (SQLException e) {
+	            throw new RuntimeException(e);
+	        } finally {
+	            // 6. 객체 연결 해제(close) finally로 꼭 실행되게 빼줘야함
+	            try {
+	                if(preparedStatement != null && !preparedStatement.isClosed()) preparedStatement.close();
+	            } catch (SQLException e) {
+	                throw new RuntimeException(e);
+	            }
+
+	            try {
+	                if(connection != null && !connection.isClosed()) connection.close();
+	            } catch (SQLException e) {
+	                throw new RuntimeException(e);
+	            }
+	        }
+
+		}
 }
+

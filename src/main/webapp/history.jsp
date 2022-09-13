@@ -5,7 +5,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<link rel="stylesheet" href="css/rs.css">
+<link rel="stylesheet" href="css/index.css">
 <title>와이파이 정보 구하기</title>
 </head>
 <body>
